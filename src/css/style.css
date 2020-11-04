@@ -1,0 +1,21 @@
+.load-more {
+    width: 100px;
+    height: 20px;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    list-style: none;
+}
+
+.photo-card {
+    margin-bottom: 20px;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+}

@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alexandr90h/goit-js-hw-13-image-finder.git"
+    "url": "git+https://alinaleonova.github.io/goit-js-hw-12-countries/"
   },
   "keywords": [],
-  "author": "Alexander <alexander90h@gmail.com>",
+  "author": "Alexander Repeta <alexander.repeta@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/alexandr90h/goit-js-hw-13-image-finder/issues"
+    "url": "https://alinaleonova.github.io/goit-js-hw-12-countries/"
   },
-  "homepage": "https://github.com/alexandr90h/goit-js-hw-13-image-finder#readme",
+  "homepage": "https://alinaleonova.github.io/goit-js-hw-12-countries/#readme",
   "devDependencies": {
     "@babel/core": "^7.11.6",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
@@ -51,6 +51,7 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "handlebars": "^4.7.6",
-    "pro-gallery-layouter": "^2.0.81"
+    "lodash.debounce": "^4.0.8",
+    "pnotify": "^5.1.2"
   }
 }

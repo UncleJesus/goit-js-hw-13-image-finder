@@ -1,21 +1,24 @@
 .load-more {
-    width: 100px;
-    height: 20px;
+  width: 100px;
+  height: 20px;
 }
 
 .gallery {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-
-    list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
 }
 
 .photo-card {
-    margin-bottom: 20px;
+  margin: 20px auto;
+  border-style: groove;
+  border-width: 10px;
 }
 
 .stats {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
+  border-style: groove;
+  border-color: teal;
 }

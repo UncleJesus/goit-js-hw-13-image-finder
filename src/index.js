@@ -1,66 +1,29 @@
-import './style.css';
-const searchFormTemplate = require('./templates/search-form-markup_template.hbs');
-const imageCardTemplate = require('./templates/image-card-template.hbs');
-import debounce from 'lodash.debounce';
-import ImageApiService from './apiService.js';
-import LoadMoreBtn from './components/load-more-btn';
+import './styles.scss';
+import galeryListTempl from './templates/galery.hbs';
 
-const imageApiService = new ImageApiService();
-const loadMoreBtn = new LoadMoreBtn({
-  selector: '[data-action="load-more"]',
-  hidden: true,
-});
 const refs = {
-  body: document.querySelector('body'),
+    galeryElem: document.querySelector('.galery-section'),
+    buttonSeachElem: document.querySelector('.search-form [type="button"]'),
+    inputSeachElem: document.querySelector('.search-form [type="text"]'),
 };
 
-// функция рендера разметки поиска
-function searchFormMarkup() {
-  const searchContainer = document.createElement('div');
-  refs.body.append(searchContainer);
-  searchContainer.insertAdjacentHTML('afterbegin', searchFormTemplate());
-}
-searchFormMarkup();
+let seachValue ='';
+const NUMBER_PAGE = 1;
+const KEY = '18956584-3ac01e2418e4c39c7eb5dacd9';
+// const SEACH_URL = `https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${seachValue}&page=${NUMBER_PAGE}&per_page=12&key=${KEY}`;
 
-const searchForm = document.querySelector('#search-form');
-searchForm.addEventListener('input', debounce(onSearch, 500));
-loadMoreBtn.refs.button.addEventListener('click', fetchImages);
+console.log(refs.inputSeachElem);
 
-// функция поиска по инпуту
-function onSearch(e) {
-  e.preventDefault();
-  imageApiService.query = e.target.value;
-  console.log(e);
-  if (imageApiService.query === '') {
-    return alert('Введи что-то нормальное');
-  }
-  loadMoreBtn.show();
-  imageApiService.resetPage();
-  //   clearArticlesContainer();
-  fetchImages();
+refs.buttonSeachElem.addEventListener('click', seachImages);
+function seachImages() {
+    seachValue = refs.inputSeachElem.value;
+    fetch(`https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${seachValue}&page=${NUMBER_PAGE}&per_page=12&key=${KEY}`).then(resolve => {
+        return resolve.json();
+    }).then(data => {
+        console.log(data);
+        const { hits } = data;
+        const arrImgUrl = hits.map(({webformatURL})=>webformatURL);
+        console.log(arrImgUrl);
+        refs.galeryElem.innerHTML = galeryListTempl({arrImgUrl});
+    }).catch();
 }
-
-// функция обработки данных из API
-function fetchImages() {
-  loadMoreBtn.disable();
-  imageApiService.fetchImageByName().then(images => {
-    imageGalleryMarkup(images);
-    loadMoreBtn.enable();
-  });
-}
-
-// функция рендера галлереи
-function imageGalleryMarkup(images) {
-  refs.body.insertAdjacentHTML('beforeend', '<ul class="gallery"></ul>');
-  images.hits.map(el => {
-    const image = document.createElement('li');
-    const imageCardMarukp = imageCardTemplate(el);
-    image.insertAdjacentHTML('afterbegin', imageCardMarukp);
-    const gallery = document.querySelector('.gallery');
-    gallery.append(image);
-  });
-}
-// function clearArticlesContainer() {
-//   const gallery = document.querySelector('.gallery');
-//   gallery.innerHTML = '';
-// }

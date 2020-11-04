@@ -1,7 +1,11 @@
 {{#each this}}
-<li>
+
+<li class="gallery__item">
     <div class="photo-card">
-        <img src="{{webformatURL}}" alt="" />
+
+        <div class="photo-card__img">
+            <img src="{{webformatURL}}" alt="{{tags}}" data-source="{{largeImageURL}}" />
+        </div>
 
         <div class="stats">
             <p class="stats-item">
@@ -23,4 +27,5 @@
         </div>
     </div>
 </li>
+
 {{/each}}

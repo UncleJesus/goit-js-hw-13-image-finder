@@ -52,7 +52,7 @@ export const searchImage = function () {
 const renderImage = function (images) {
   [...images.hits].forEach(el => {
     list.innerHTML += `<li class="photo-card">
-            <img height="400px" width="300px" src="${el.webformatURL}" alt="" />
+            <img height="300px" width="300px" src="${el.webformatURL}" alt="" />
             <div class="stats">
                 <p class="stats-item">
                     <i class="material-icons">thumb_up</i>

@@ -5,22 +5,16 @@ let keyWord = '';
 let renderTimes = 1;
 
 const loadMore = function () {
-  const screenY = document.documentElement.scrollHeight;
   searchImage();
-
-  window.scrollTo({
-    top: screenY,
-    behavior: 'smooth',
-  });
 };
 
-export const searchImage = function () {
+export const searchImage = async function () {
   let word = input.value;
-
+  const screenY = document.documentElement.scrollHeight;
   if (word === keyWord) {
     page += 1;
 
-    fetch(
+    await fetch(
       `https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${word}&page=${page}&per_page=12&key=18951897-f7110a11ebc58b866f93acf70`,
     )
       .then(data => data.json())
@@ -28,13 +22,11 @@ export const searchImage = function () {
   } else {
     list.innerHTML = '';
 
-    fetch(
+    await fetch(
       `https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${word}&page=${page}&per_page=12&key=18951897-f7110a11ebc58b866f93acf70`,
     )
       .then(data => data.json())
       .then(data => renderImage(data));
-
-    const screenY = document.documentElement.scrollHeight;
 
     if (renderTimes === 1) {
       document.body.insertAdjacentHTML(
@@ -47,6 +39,11 @@ export const searchImage = function () {
 
     keyWord = word;
   }
+
+  window.scrollTo({
+    top: screenY,
+    behavior: 'smooth',
+  });
 };
 
 const renderImage = function (images) {
